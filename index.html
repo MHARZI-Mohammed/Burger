@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" x-data="{ darkMode: false, menuOpen: false }" :class="darkMode ? 'dark' : ''">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Burger</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</head>
+
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
+
+<div id="loader">
+  <div class="loader-circle"></div>
+</div>
+
+<header class="bg-white dark:bg-gray-800 shadow-md fixed w-full top-0 z-50">
+  <nav class="container mx-auto flex justify-between items-center py-4 px-4">
+
+    <h1 class="text-2xl font-bold text-red-600">Burger</h1>
+
+    <ul class="hidden md:flex space-x-8 font-medium">
+      <li><a href="#" class="hover:text-red-600">Home</a></li>
+      <li><a href="#menu" class="hover:text-red-600">Menu</a></li>
+      <li><a href="#about" class="hover:text-red-600">About</a></li>
+      <li><a href="#order" class="hover:text-red-600">Order</a></li>
+    </ul>
+
+    <div class="flex space-x-4 items-center">
+
+      <button @click="darkMode = !darkMode"
+              class="text-xl px-3 py-1 rounded-full bg-gray-200 dark:bg-gray-700">
+        <span x-show="!darkMode">🌙</span>
+        <span x-show="darkMode">☀️</span>
+      </button>
+
+      <button @click="menuOpen = !menuOpen" class="md:hidden text-3xl">☰</button>
+    </div>
+  </nav>
+
+  <div x-show="menuOpen" class="md:hidden bg-white dark:bg-gray-800 px-5 pb-4 space-y-2">
+    <a href="#" class="block hover:text-red-600">Home</a>
+    <a href="#menu" class="block hover:text-red-600">Menu</a>
+    <a href="#about" class="block hover:text-red-600">About</a>
+    <a href="#order" class="block hover:text-red-600">Order</a>
+  </div>
+</header>
+
+<section class="pt-28 pb-20 bg-cover bg-center fade-slide"
+  style="background-image: url('https://images.unsplash.com/photo-1550547660-d9450f859349');">
+
+  <div class="container mx-auto text-center px-6">
+    <h2 class="text-5xl font-extrabold text-white drop-shadow-xl">Fresh Burgers</h2>
+    <p class="mt-4 text-lg text-white opacity-90">Taste the best homemade burgers.</p>
+    <a href="#menu" 
+       class="mt-6 inline-block bg-red-600 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-red-700">
+       Order Now
+    </a>
+  </div>
+</section>
+
+<section id="menu" class="py-20 container mx-auto px-6">
+  <h3 class="text-3xl font-bold text-center mb-12">Our Menu</h3>
+
+  <div class="grid md:grid-cols-3 gap-10">
+
+    <template x-for="item in [
+      {name:'Classic Burger', price:'$8.99', img:'https://images.unsplash.com/photo-1550547660-d9450f859349'},
+      {name:'Chicken Burger', price:'$7.49', img:'https://images.unsplash.com/photo-1571091718767-18b5b1457c57'},
+      {name:'Double Cheese Burger', price:'$10.99', img:'https://images.unsplash.com/photo-1606756790138-8f65c5bfa20f'},
+      {name:'Spicy Beef Burger', price:'$9.49', img:'https://images.unsplash.com/photo-1604908176997-73b4dc0f5b1b'},
+      {name:'BBQ Burger', price:'$11.49', img:'https://images.unsplash.com/photo-1601050690597-df13c0c76fd3'},
+      {name:'Veggie Burger', price:'$6.99', img:'https://images.unsplash.com/photo-1550547660-6f996a76b39c'}
+    ]">
+      <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+        <img :src="item.img" class="w-full h-48 object-cover">
+        <div class="p-6">
+          <h4 class="text-xl font-semibold" x-text="item.name"></h4>
+          <p class="text-red-600 font-bold mt-4" x-text="item.price"></p>
+        </div>
+      </div>
+    </template>
+
+  </div>
+</section>
+
+<section id="about" class="bg-red-600 text-white py-20">
+  <div class="container mx-auto px-6 text-center">
+    <h3 class="text-3xl font-bold mb-4">Why Choose Us?</h3>
+    <p class="max-w-3xl mx-auto">
+      We prepare handmade burgers using premium ingredients.
+    </p>
+  </div>
+</section>
+
+<section id="order" class="py-20 container mx-auto px-6">
+  <h3 class="text-3xl font-bold text-center mb-10">Place Your Order</h3>
+
+  <div class="max-w-2xl mx-auto bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg">
+
+    <form class="space-y-5">
+
+      <div>
+        <label class="block font-semibold mb-1">Full Name</label>
+        <input type="text" class="w-full p-3 rounded-lg border dark:border-gray-700 dark:bg-gray-900">
+      </div>
+
+      <div>
+        <label class="block font-semibold mb-1">Phone Number</label>
+        <input type="text" class="w-full p-3 rounded-lg border dark:border-gray-700 dark:bg-gray-900">
+      </div>
+
+      <div>
+        <label class="block font-semibold mb-1">Select Item</label>
+        <select class="w-full p-3 rounded-lg border dark:border-gray-700 dark:bg-gray-900">
+          <option>Classic Burger - $8.99</option>
+          <option>Chicken Burger - $7.49</option>
+          <option>Double Cheese Burger - $10.99</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block font-semibold mb-1">Quantity</label>
+        <input type="number" min="1" value="1" class="w-full p-3 rounded-lg border dark:border-gray-700 dark:bg-gray-900">
+      </div>
+
+      <button 
+        class="w-full bg-red-600 text-white py-3 rounded-lg text-lg font-semibold hover:bg-red-700 transition">
+        Submit Order
+      </button>
+
+    </form>
+
+  </div>
+</section>
+
+<footer class="bg-black text-white py-5 text-center">
+  <p>© 2025 Burger — All rights reserved.</p>
+</footer>
+
+</body>
+</html>
